@@ -8,20 +8,23 @@
       </ul>
     </div>
     <div class="card-footer">
-      <button class="btn btn-primary" [disabled]="!isAuth">doSomething</button>
+      <button class="btn btn-primary" [disabled]="!isAuth" (click)="onAlumer()">doSomething</button>
     </div>
   </div>
   
   <br/><br/><br/>
   <div class="list-group">
     <h2 *ngIf="query">{{ query }}</h2>
-    <a *ngFor="let artist of artists" href="#" class="list-group-item list-group-item-action flex-column align-items-start disabled">
+    <div *ngFor="let artist of artists" [ngClass]="{'text-white bg-primary': artist.status === 'active',
+                                                    'text-primary bg-white': artist.status != 'active'}" href="#" class="list-group-item list-group-item-action flex-column align-items-start">
       <div class="d-flex w-100 justify-content-between">
         <h5 class="mb-1">{{ artist.name }}</h5>
         <small>{{ artist.name }}</small>
       </div>
       <p class="mb-1">{{ artist.reknown }}</p>
-      <small (click)="showArtist($event)" style="background-color:blue;">{{ artist.bio }}</small>
-    </a>
+      <small (click)="showArtist($event)">{{ artist.bio }}</small>
+      <br/>
+      <input type="text" class="form-control" [(ngModel)]="artist.name" [ngStyle]="{color:getColor()}">
+    </div>
   </div>
 </div>
